@@ -11,7 +11,10 @@
     <ListView
         android:id="@+id/listview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:stackFromBottom="true"
+        android:transcriptMode="alwaysScroll"
+        android:layout_marginBottom="70dp">
     </ListView>
 
     <EditText

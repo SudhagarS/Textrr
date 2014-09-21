@@ -1,7 +1,5 @@
 package test.hfme.textrr.util;
 
-import android.util.Log;
-
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParsePush;
@@ -15,9 +13,8 @@ public class ParseUtil {
 
     public static ParsePush getParsePushObject(String message) throws JSONException {
         JSONObject data = new JSONObject();
+        data.put(Constants.KEY_ACTION, Constants.INTENT_ACTION);
         data.put(Constants.KEY_MSG, message);
-        // TODO append contact number with message
-        data.put(Constants.KEY_ALERT, message);
         // Not possible to get mobile no in some cases, falling back to using email id
         data.put(Constants.KEY_SENDER, TextrrApplication.getEmail());
         data.put(Constants.KEY_TIME, System.currentTimeMillis());

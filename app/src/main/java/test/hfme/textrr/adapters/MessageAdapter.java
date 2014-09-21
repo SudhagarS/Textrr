@@ -32,6 +32,7 @@ public class MessageAdapter extends ParseQueryAdapter<ParseObject> {
         ((TextView) v.findViewById(R.id.sender)).setText(object.getString(Constants.KEY_SENDER));
         ((TextView) v.findViewById(R.id.message)).setText(object.getString(Constants.KEY_MSG));
         ((TextView) v.findViewById(R.id.sent_time)).setText(date.getHours() + ":" + date.getMinutes());
+        // TODO change color if email matches with this user's email
         return v;
     }
 }

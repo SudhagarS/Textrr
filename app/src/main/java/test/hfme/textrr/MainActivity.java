@@ -20,7 +20,6 @@ import com.parse.ParseQueryAdapter;
 import com.parse.SendCallback;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import test.hfme.textrr.adapters.MessageAdapter;
 import test.hfme.textrr.util.CommonUtil;
@@ -30,7 +29,8 @@ import test.hfme.textrr.util.ParseUtil;
 
 public class MainActivity extends Activity {
 
-    MessageAdapter mAdapter;
+    private MessageAdapter mAdapter;
+    private ListView mListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +39,18 @@ public class MainActivity extends Activity {
 
         initListView();
         addListeners();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        TextrrApplication.setMainActivityInFront(false);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TextrrApplication.setMainActivityInFront(true);
     }
 
     private void showToast(int id) {
@@ -80,27 +92,17 @@ public class MainActivity extends Activity {
                 return query;
             }
         });
-
-        mAdapter.setTextKey("message");
-
-        ListView listView = (ListView) findViewById(R.id.listview);
-        listView.setAdapter(mAdapter);
+        mListView = (ListView) findViewById(R.id.listview);
+        mListView.setAdapter(mAdapter);
+        mListView.setSelection(mAdapter.getCount() - 1);
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         Log.d(Constants.LOG_TAG, "In onNewIntent()");
-        try {
-            JSONObject data = new JSONObject(intent.getExtras().getString("com.parse.Data"));
-            ParseUtil.saveToLocalStore(data);
-            Log.d(Constants.LOG_TAG, "Data is " + data);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
         mAdapter.loadObjects();
+        mListView.setSelection(mAdapter.getCount() - 1);
     }
 
     @Override
