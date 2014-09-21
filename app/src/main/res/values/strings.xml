@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Textrr</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="parse_app_id">0Wxckmv9XuVbhrmfejuUshLK8qKdlwGkXz4JIL5V</string>
+    <string name="parse_client_id">34tWVVZolF5zmtVszyifGa2fiMmojBva167p33hy</string>
+    <string name="send">send</string>
+    <string name="no_network">No network available.</string>
+    <string name="error">Some problem occured</string>
+</resources>
