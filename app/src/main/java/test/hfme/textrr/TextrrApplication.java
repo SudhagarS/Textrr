@@ -21,7 +21,8 @@ public class TextrrApplication extends Application {
         super.onCreate();
         appContext = this;
         Parse.enableLocalDatastore(this);
-        Parse.initialize(this, getString(R.string.parse_app_id), getString(R.string.parse_client_id));
+        Parse.initialize(this, getString(R.string.parse_app_id),
+                getString(R.string.parse_client_id));
 //        PushService.setDefaultPushCallback(this, MainActivity.class);
 //        PushService.subscribe(this, Constants.CHANNEL_DEFAULT, MainActivity.class);
     }
