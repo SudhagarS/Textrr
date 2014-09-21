@@ -27,6 +27,7 @@ public class MessageReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        Log.d(Constants.LOG_TAG, "MessageReceiver, onReceive()...");
         try {
             JSONObject json = new JSONObject(intent.getExtras().getString("com.parse.Data"));
             ParseUtil.saveToLocalStore(json);
