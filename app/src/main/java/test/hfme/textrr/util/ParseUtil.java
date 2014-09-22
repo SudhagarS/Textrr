@@ -19,7 +19,8 @@ public class ParseUtil {
         data.put(Constants.KEY_SENDER, TextrrApplication.getEmail());
         data.put(Constants.KEY_TIME, System.currentTimeMillis());
         ParsePush push = new ParsePush();
-        push.setChannel(Constants.CHANNEL_DEFAULT);
+//        push.setChannel(Constants.CHANNEL_DEFAULT);
+        push.setChannel(Constants.CHANNEL_TESTING);
         push.setData(data);
         return push;
     }

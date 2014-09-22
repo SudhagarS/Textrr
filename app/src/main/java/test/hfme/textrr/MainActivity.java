@@ -58,7 +58,7 @@ public class MainActivity extends Activity {
     }
 
     private void addListeners() {
-        Button sendButton = (Button) findViewById(R.id.button_send);
+        final Button sendButton = (Button) findViewById(R.id.button_send);
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,17 +67,23 @@ public class MainActivity extends Activity {
                     return;
                 }
                 final EditText messageBox = (EditText) findViewById(R.id.edit_msg);
+                if (messageBox.getText().toString().length() == 0) {
+                    return;
+                }
                 try {
                     Log.d(Constants.LOG_TAG, "Send clicked, sending push notification...");
+                    sendButton.setEnabled(false);
                     ParsePush push = ParseUtil.getParsePushObject(messageBox.getText().toString());
                     push.sendInBackground(new SendCallback() {
                         @Override
                         public void done(ParseException e) {
                             messageBox.setText("");
+                            sendButton.setEnabled(true);
                         }
                     });
                 } catch (JSONException e) {
                     showToast(R.string.error);
+                    sendButton.setEnabled(true);
                 }
             }
         });
@@ -92,9 +98,9 @@ public class MainActivity extends Activity {
                 return query;
             }
         });
+        mAdapter.setPaginationEnabled(false);
         mListView = (ListView) findViewById(R.id.listview);
         mListView.setAdapter(mAdapter);
-        mListView.setSelection(mAdapter.getCount() - 1);
     }
 
     @Override
@@ -102,7 +108,6 @@ public class MainActivity extends Activity {
         super.onNewIntent(intent);
         Log.d(Constants.LOG_TAG, "In onNewIntent()");
         mAdapter.loadObjects();
-        mListView.setSelection(mAdapter.getCount() - 1);
     }
 
     @Override

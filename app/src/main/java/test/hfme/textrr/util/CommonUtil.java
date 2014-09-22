@@ -20,7 +20,7 @@ public class CommonUtil {
     }
 
     public static boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager  = (ConnectivityManager)
+        ConnectivityManager connectivityManager = (ConnectivityManager)
                 TextrrApplication.getAppContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
@@ -32,10 +32,8 @@ public class CommonUtil {
         Account[] list = manager.getAccounts();
         String gmail = "";
 
-        for(Account account: list)
-        {
-            if(account.type.equalsIgnoreCase("com.google"))
-            {
+        for (Account account : list) {
+            if (account.type.equalsIgnoreCase("com.google")) {
                 gmail = account.name;
                 break;
             }
