@@ -14,12 +14,12 @@
         android:layout_height="wrap_content"
         android:stackFromBottom="true"
         android:transcriptMode="alwaysScroll"
-        android:layout_marginBottom="70dp">
+        android:layout_marginBottom="@dimen/list_view_margin_bottom">
     </ListView>
 
     <EditText
         android:id="@+id/edit_msg"
-        android:layout_width="220dp"
+        android:layout_width="@dimen/message_box_width"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"

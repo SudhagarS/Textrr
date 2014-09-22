@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="test.hfme.textrr">
+    package="test.hfme.textrr" >
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS"></uses-permission>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <!-- Parse permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -16,6 +16,7 @@
     <permission
         android:name="test.hfme.textrr.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
+
     <uses-permission android:name="test.hfme.textrr.permission.C2D_MESSAGE" />
     <!-- Parse permissions end -->
 
@@ -24,13 +25,14 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -38,27 +40,27 @@
         <!-- Parse -->
         <service android:name="com.parse.PushService" />
 
-        <receiver android:name="com.parse.ParseBroadcastReceiver">
+        <receiver android:name="com.parse.ParseBroadcastReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.USER_PRESENT" />
             </intent-filter>
         </receiver>
-
         <receiver
             android:name="com.parse.GcmBroadcastReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND">
+            android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
                 <category android:name="test.hfme.textrr" />
             </intent-filter>
         </receiver>
         <!-- Parse end -->
 
         <receiver
-            android:name="test.hfme.textrr.receivers.MessageReceiver"
-            android:exported="false">
+            android:name=".receivers.MessageReceiver"
+            android:exported="false" >
             <intent-filter>
                 <action android:name="test.hfme.textrr.MESSAGE_RECEIVED" />
             </intent-filter>

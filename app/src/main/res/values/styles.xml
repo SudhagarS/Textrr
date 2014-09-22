@@ -5,4 +5,23 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="style_list_item_textview">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="style_list_item_textview.style_sender_textview">
+        <item name="android:textStyle">italic</item>
+        <item name="android:textSize">@dimen/text_size_small</item>
+    </style>
+
+    <style name="style_list_item_textview.style_message_textview">
+        <item name="android:singleLine">false</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
+    </style>
+
+    <style name="style_list_item_textview.style_sent_time_textview">
+        <item name="android:textSize">@dimen/text_size_small</item>
+    </style>
+
 </resources>

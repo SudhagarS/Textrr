@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/list_item_top_bottom_padding"
+    android:paddingBottom="@dimen/list_item_top_bottom_padding">
 
     <TextView
         android:id="@+id/sender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="italic"
-        android:textSize="12sp"/>
+        style="@style/style_list_item_textview.style_sender_textview"/>
+
     <TextView
         android:id="@+id/message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:singleLine="false"
-        android:textSize="20sp"/>
+        style="@style/style_list_item_textview.style_message_textview"/>
 
     <TextView
         android:id="@+id/sent_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="12sp"/>
+        style="@style/style_list_item_textview.style_sent_time_textview"/>
 </LinearLayout>
