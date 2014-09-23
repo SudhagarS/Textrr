@@ -85,14 +85,6 @@ public class MainActivity extends Activity implements LocationListener {
             }
         }
     }
-    // check if location is 5 min fresh
-//    mLocation=mLocationManager.getLastKnownLocation(mBestProvider);
-//    if(mLocation!=null&&mLocation.getTime()>
-//            Calendar.getInstance().
-
-//    getTimeInMillis()
-
-//    -5*60*1000)
 
     private void addListeners() {
         final Button sendButton = (Button) findViewById(R.id.button_send);
