@@ -1,5 +1,7 @@
 package test.hfme.textrr.util;
 
+import android.location.Location;
+
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParsePush;
@@ -11,13 +13,15 @@ import test.hfme.textrr.TextrrApplication;
 
 public class ParseUtil {
 
-    public static ParsePush getParsePushObject(String message) throws JSONException {
+    public static ParsePush getParsePushObject(String message, Location location) throws JSONException {
         JSONObject data = new JSONObject();
         data.put(Constants.KEY_ACTION, Constants.INTENT_ACTION);
         data.put(Constants.KEY_MSG, message);
         // Not possible to get mobile no in some cases, falling back to using email id
         data.put(Constants.KEY_SENDER, TextrrApplication.getEmail());
         data.put(Constants.KEY_TIME, System.currentTimeMillis());
+        data.put(Constants.KEY_LAT, location.getLatitude());
+        data.put(Constants.KEY_LONGI, location.getLongitude());
         ParsePush push = new ParsePush();
 //        push.setChannel(Constants.CHANNEL_DEFAULT);
         push.setChannel(Constants.CHANNEL_TESTING);

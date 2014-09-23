@@ -9,4 +9,8 @@
     <string name="send">send</string>
     <string name="no_network">No network available.</string>
     <string name="error">Some problem occured</string>
+    <string name="loc_off">Location turned off</string>
+    <string name="loc_turn_on_message">Please turn on location to start sending messages</string>
+    <string name="cancel">Cancel</string>
+    <string name="settings">Settings</string>
 </resources>

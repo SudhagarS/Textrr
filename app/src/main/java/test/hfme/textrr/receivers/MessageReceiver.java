@@ -7,6 +7,8 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Build;
 import android.util.Log;
 
@@ -14,8 +16,6 @@ import com.parse.ParseException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.Iterator;
 
 import test.hfme.textrr.MainActivity;
 import test.hfme.textrr.R;
@@ -28,8 +28,18 @@ public class MessageReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d(Constants.LOG_TAG, "MessageReceiver, onReceive()...");
+        Location location = getLocationOrNull();
+        // if location not available ignore message
+        if (location == null) {
+            return;
+        }
+
         try {
             JSONObject json = new JSONObject(intent.getExtras().getString("com.parse.Data"));
+            if (distance(location.getLatitude(), location.getLongitude(),
+                    json.getDouble(Constants.KEY_LAT), json.getDouble(Constants.KEY_LONGI)) > 100) {
+                return;
+            }
             ParseUtil.saveToLocalStore(json);
 
             if (TextrrApplication.isMainActivityInFront()) {
@@ -39,13 +49,6 @@ public class MessageReceiver extends BroadcastReceiver {
                 context.startActivity(mainActivityIntent);
             } else {
                 sendNotification(context, json);
-            }
-
-            // DEBUG
-            Iterator itr = json.keys();
-            while (itr.hasNext()) {
-                String key = (String) itr.next();
-                Log.d(Constants.LOG_TAG, "..." + key + " => " + json.getString(key));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -71,6 +74,36 @@ public class MessageReceiver extends BroadcastReceiver {
                 .build();
 
         notificationManager.notify(999, n);
-
     }
+
+    private Location getLocationOrNull() {
+        LocationManager locationManager = (LocationManager)
+                TextrrApplication.getAppContext().getSystemService(Context.LOCATION_SERVICE);
+        boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        if (isNetworkEnabled) {
+            return locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        } else if (isGPSEnabled) {
+            return locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        }
+        return null;
+    }
+
+    private double distance(double lat1, double lon1, double lat2, double lon2) {
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;
+        return dist * 1.609344;
+    }
+
+    private double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+
+    private double rad2deg(double rad) {
+        return (rad * 180.0 / Math.PI);
+    }
+
 }
