@@ -8,6 +8,7 @@ public final class Constants {
 
     public static final String CLASS_MESSAGE = "message";
 
+    public static final int NOTI_ID = 999;
     public static final String KEY_MSG = "message";
     public static final String KEY_SENDER = "sender";
     public static final String KEY_TIME = "time";
@@ -16,7 +17,7 @@ public final class Constants {
     public static final String KEY_LONGI = "longitude";
 
     public static final String CHANNEL_DEFAULT = "default";
-    public static final String CHANNEL_TESTING = "testing";
+//    public static final String CHANNEL_TESTING = "testing";
 
     public static final String INTENT_ACTION = "test.hfme.textrr.MESSAGE_RECEIVED";
 }

@@ -23,8 +23,8 @@ public class ParseUtil {
         data.put(Constants.KEY_LAT, location.getLatitude());
         data.put(Constants.KEY_LONGI, location.getLongitude());
         ParsePush push = new ParsePush();
-//        push.setChannel(Constants.CHANNEL_DEFAULT);
-        push.setChannel(Constants.CHANNEL_TESTING);
+        push.setChannel(Constants.CHANNEL_DEFAULT);
+//        push.setChannel(Constants.CHANNEL_TESTING);
         push.setData(data);
         return push;
     }

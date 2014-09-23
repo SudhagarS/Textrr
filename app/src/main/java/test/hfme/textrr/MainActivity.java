@@ -2,6 +2,7 @@ package test.hfme.textrr;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -44,6 +45,8 @@ public class MainActivity extends Activity implements LocationListener {
     private Location mLocation;
     private String mProvider;
 
+    private static final long REFRESH_PERIOD = 5 * 60 * 1000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +55,12 @@ public class MainActivity extends Activity implements LocationListener {
         initLocationManager();
         initListView();
         addListeners();
+        cancelNotificationsIfAny();
+    }
+
+    private void cancelNotificationsIfAny() {
+        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancel(Constants.NOTI_ID);
     }
 
     @Override
@@ -98,7 +107,7 @@ public class MainActivity extends Activity implements LocationListener {
 
                 // check if loc is null or 5 min old
                 if (mLocation == null || mLocation.getTime() <
-                        Calendar.getInstance().getTimeInMillis() - (5 * 60 * 1000)) {
+                        Calendar.getInstance().getTimeInMillis() - REFRESH_PERIOD) {
                     mLocation = mLocationManager.getLastKnownLocation(mProvider);
                     if (mLocation == null) {
                         showAlert(R.string.loc_off, R.string.loc_turn_on_message);

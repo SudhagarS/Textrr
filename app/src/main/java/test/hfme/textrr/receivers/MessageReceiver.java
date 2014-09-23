@@ -7,8 +7,11 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 
@@ -38,6 +41,7 @@ public class MessageReceiver extends BroadcastReceiver {
             JSONObject json = new JSONObject(intent.getExtras().getString("com.parse.Data"));
             if (distance(location.getLatitude(), location.getLongitude(),
                     json.getDouble(Constants.KEY_LAT), json.getDouble(Constants.KEY_LONGI)) > 100) {
+                Log.d(Constants.LOG_TAG, "Distance too far. Message dropped.");
                 return;
             }
             ParseUtil.saveToLocalStore(json);
@@ -59,6 +63,8 @@ public class MessageReceiver extends BroadcastReceiver {
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void sendNotification(Context context, JSONObject json) throws JSONException {
+        Uri msgSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
         NotificationManager notificationManager = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -70,10 +76,12 @@ public class MessageReceiver extends BroadcastReceiver {
                 .setContentText(json.getString(Constants.KEY_MSG))
                 .setSmallIcon(R.drawable.ic_launcher)
                 .setAutoCancel(true)
+                .setSound(msgSound)
+                .setLights(Color.BLUE, 500, 500)
                 .setContentIntent(pIntent)
                 .build();
 
-        notificationManager.notify(999, n);
+        notificationManager.notify(Constants.NOTI_ID, n);
     }
 
     private Location getLocationOrNull() {
